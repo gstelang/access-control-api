@@ -25,11 +25,10 @@ func configureOpenFGA() *client.OpenFgaClient {
 }
 
 func main() {
+	fgaClient := configureOpenFGA()
+	
 	// Set up routes
 	http.HandleFunc("/v1/domains/transfer", handlers.TransferHandler)
-
-	fgaClient := configureOpenFGA()
-
 	// Example http://localhost:8082/v1/authorization/domains/alice.com/check?user=alice&action=can_delete
 	http.HandleFunc("/v1/authorization/domains/", middleware.AuthorizationMiddleware(fgaClient)(handlers.DomainAuthorization))
 
