@@ -18,7 +18,7 @@ func DomainAuthorization(w http.ResponseWriter, r *http.Request) {
 
 	pathParts := strings.Split(r.URL.Path, "/")
 
-	if len(pathParts) < 5 || pathParts[5] != "check" {
+	if len(pathParts) < 6 || pathParts[5] != "check" {
 		http.Error(w, "Invalid URL", http.StatusBadRequest)
 		return
 	}
