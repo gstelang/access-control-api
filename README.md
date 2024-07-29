@@ -1,6 +1,5 @@
-# Features:
-* Send HTTP requests (GET, POST, PUT, DELETE) with role-based access.
-
+# Role-Based Domain Name Management:
+* Verify your ability to perform actions (such as managing or transferring) a domain name based on your role (e.g., owner, delegate).
 
 # Install 
 ```
