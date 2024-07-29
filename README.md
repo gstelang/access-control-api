@@ -1,4 +1,4 @@
-# Role-Based Domain Name Management:
+# Role-Based Domain Name Management using OpenFGA:
 * Verify your ability to perform actions (such as managing or transferring) a domain name based on your role (e.g., owner, delegate).
 
 # Install 
