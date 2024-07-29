@@ -2,7 +2,6 @@ name: domain access test
 
 model_file: ./folder_service.fga
 
-# tuple_file: ./tuples.yaml # you can specify an external file, or include it inline
 tuples:
   - user: user:alice
     relation: owner

@@ -10,10 +10,6 @@ type domain
     define can_manage: owner or delegate
     define can_transfer: owner or delegate
     define can_delete: owner
-    define edit_nameservers: [domain#can_manage]
-    define update_contact_info: [domain#can_manage]
-    define turn_lock_off: [domain#can_transfer]
-    define list_for_sale: [domain#can_transfer]
 
 type folder
   relations
