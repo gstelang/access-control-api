@@ -1,0 +1,26 @@
+model
+  schema 1.1
+
+type user
+
+type domain
+  relations
+    define owner: [user]
+    define delegate: [user]
+    define can_manage: owner or delegate
+    define can_transfer: owner or delegate
+    define can_delete: owner
+    define edit_nameservers: [domain#can_manage]
+    define update_contact_info: [domain#can_manage]
+    define turn_lock_off: [domain#can_transfer]
+    define list_for_sale: [domain#can_transfer]
+
+type folder
+  relations
+    define owner: [user]
+    define delegate: [user]
+    define can_access: owner or delegate
+    define can_create: owner
+
+
+

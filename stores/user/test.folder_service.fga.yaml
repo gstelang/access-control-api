@@ -1,0 +1,43 @@
+name: domain access test
+
+model_file: ./folder_service.fga
+
+# tuple_file: ./tuples.yaml # you can specify an external file, or include it inline
+tuples:
+  - user: user:alice
+    relation: owner
+    object: domain:alice.com
+  - user: user:bob
+    relation: delegate
+    object: domain:alice.com
+  - user: user:mallory
+    relation: owner
+    object: domain:mallory.com
+
+tests:
+  - name: Users should have access
+    check:
+      - user: user:alice
+        object: domain:alice.com
+        assertions:
+          owner: true
+          delegate: false
+          can_manage: true
+          can_transfer: true
+          can_delete: true
+      - user: user:bob
+        object: domain:alice.com
+        assertions:
+          owner: false
+          delegate: true
+          can_manage: true
+          can_transfer: true
+          can_delete: false
+      - user: user:mallory
+        object: domain:alice.com
+        assertions:
+          owner: false
+          delegate: false
+          can_manage: false
+          can_transfer: false
+          can_delete: false
