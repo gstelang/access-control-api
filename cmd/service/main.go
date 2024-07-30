@@ -13,9 +13,9 @@ import (
 
 func configureOpenFGA() *client.OpenFgaClient {
 	// Configure the OpenFGA client
+	// TODO: hardcoded
 	fgaClient, err := NewSdkClient(&ClientConfiguration{
-		ApiUrl: "http://localhost:8080",
-		// TODO: change
+		ApiUrl:  "http://localhost:8080",
 		StoreId: "01J3YZNXB503K28RM3M7C3625C",
 	})
 	if err != nil {
@@ -26,7 +26,7 @@ func configureOpenFGA() *client.OpenFgaClient {
 
 func main() {
 	fgaClient := configureOpenFGA()
-	
+
 	// Set up routes
 	http.HandleFunc("/v1/domains/transfer", handlers.TransferHandler)
 	// Example http://localhost:8082/v1/authorization/domains/alice.com/check?user=alice&action=can_delete
