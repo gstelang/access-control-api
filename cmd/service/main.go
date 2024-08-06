@@ -12,6 +12,8 @@ import (
 
 // Server struct to hold dependencies and configuration
 type Server struct {
+	// router or mux used interchangeably
+	router    *http.ServeMux
 	fgaClient *client.OpenFgaClient
 	port      string
 }
@@ -24,6 +26,7 @@ func NewServer(port string) (*Server, error) {
 	}
 
 	return &Server{
+		router:    http.NewServeMux(),
 		fgaClient: fgaClient,
 		port:      port,
 	}, nil
@@ -40,14 +43,14 @@ func configureOpenFGA() (*client.OpenFgaClient, error) {
 
 // SetupRoutes configures the routes for the server
 func (s *Server) SetupRoutes() {
-	http.HandleFunc("/v1/domains/transfer", handlers.TransferHandler)
-	http.HandleFunc("/v1/authorization/domains/", middleware.AuthorizationMiddleware(s.fgaClient)(handlers.DomainAuthorization))
+	s.router.HandleFunc("/v1/domains/transfer", handlers.TransferHandler)
+	s.router.HandleFunc("/v1/authorization/domains/", middleware.AuthorizationMiddleware(s.fgaClient)(handlers.DomainAuthorization))
 }
 
 // Start begins listening for incoming requests
 func (s *Server) Start() error {
 	fmt.Printf("Server starting on port %s...\n", s.port)
-	return http.ListenAndServe(":"+s.port, nil)
+	return http.ListenAndServe(":"+s.port, s.router)
 }
 
 func main() {
