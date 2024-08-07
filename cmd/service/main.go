@@ -37,14 +37,14 @@ func configureOpenFGA() (*client.OpenFgaClient, error) {
 	// TODO: hardcoded
 	return client.NewSdkClient(&client.ClientConfiguration{
 		ApiUrl:  "http://localhost:8080",
-		StoreId: "01J3YZNXB503K28RM3M7C3625C",
+		StoreId: "01J4N365K561ZBQ0GXZENCN6AE",
 	})
 }
 
 // SetupRoutes configures the routes for the server
 func (s *Server) SetupRoutes() {
 	s.router.HandleFunc("/v1/domains/transfer", handlers.TransferHandler)
-	s.router.HandleFunc("/v1/authorization/domains/", middleware.AuthorizationMiddleware(s.fgaClient)(handlers.DomainAuthorization))
+	s.router.HandleFunc("/v1/authorization/domains/{domainName}/check", middleware.AuthorizationMiddleware(s.fgaClient)(handlers.DomainAuthorization))
 }
 
 // Start begins listening for incoming requests

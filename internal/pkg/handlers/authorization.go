@@ -5,24 +5,12 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"strings"
 
 	client "github.com/openfga/go-sdk/client"
 )
 
 func DomainAuthorization(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodGet {
-		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
-		return
-	}
-
-	pathParts := strings.Split(r.URL.Path, "/")
-
-	if len(pathParts) < 6 || pathParts[5] != "check" {
-		http.Error(w, "Invalid URL", http.StatusBadRequest)
-		return
-	}
-	domainName := pathParts[4]
+	domainName := r.PathValue("domainName")
 
 	action := r.URL.Query().Get("action")
 	if action == "" {
